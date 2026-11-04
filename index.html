@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saimontronics — ইলেকট্রনিক কম্পোনেন্টের দোকান</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@500;700;800&family=Hind+Siliguri:wght@400;500;600&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0c1e3f;--navy2:#17305e;--cu:#e0883a;--cu2:#ffd08a;--paper:#f1f4f8;--ink:#101828;--line:#c3cfe0}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:"Hind Siliguri",system-ui,sans-serif;color:var(--ink);line-height:1.7;font-size:17px;padding-bottom:84px;
+ background:var(--paper) linear-gradient(rgba(12,30,63,.045) 1px,transparent 1px) 0 0/30px 30px,linear-gradient(90deg,rgba(12,30,63,.045) 1px,transparent 1px) 0 0/30px 30px}
+h1,h2,h3{font-family:"Anek Bangla","Hind Siliguri",sans-serif;line-height:1.25}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--cu);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.logo{font:700 1.45rem "Space Grotesk",sans-serif;color:#fff;text-decoration:none;letter-spacing:-.02em}
+.logo b{color:var(--cu)}
+.btn{display:inline-block;background:var(--cu);color:var(--navy);font:600 1.05rem "Hind Siliguri",sans-serif;text-decoration:none;border:2px solid var(--cu);padding:12px 26px;border-radius:10px;cursor:pointer}
+.btn:hover{background:var(--cu2);border-color:var(--cu2)}
+.btn.line{background:transparent;color:#fff;border-color:#5d7099;margin-left:8px}
+.btn.line:hover{background:#fff1;border-color:#fff}
+
+/* resistor motif */
+.res{position:relative;display:inline-block;width:56px;height:17px;margin:0 16px;border-radius:9px;flex:none;
+ background:linear-gradient(90deg,transparent 0 20%,#8b4513 20% 27%,transparent 27% 37%,#111 37% 44%,transparent 44% 54%,#f77f00 54% 61%,transparent 61% 78%,#d4af37 78% 85%,transparent 85%),#d8c18f}
+.res::before,.res::after{content:"";position:absolute;top:7px;width:16px;height:3px;background:#8794ac}
+.res::before{left:-16px}.res::after{right:-16px}
+h2{display:flex;align-items:center;font-size:clamp(1.8rem,4.6vw,2.6rem);color:var(--navy);margin-bottom:8px}
+h2 .res{margin-left:16px}
+.sub{max-width:36em;margin:0 0 30px 0}
+
+/* bar */
+.bar{position:sticky;top:0;z-index:50;background:var(--navy);box-shadow:0 3px 0 var(--cu)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.bar .btn{padding:7px 22px;font-size:1rem}
+.bar{position:sticky}
+.act{display:flex;align-items:center;gap:10px}
+.mbtn{background:transparent;color:#fff;border:2px solid #5d7099;border-radius:10px;padding:6px 14px;font:500 1rem "Hind Siliguri",sans-serif;cursor:pointer}
+.mbtn:hover{border-color:#fff}
+.drawer{position:absolute;left:0;right:0;top:100%;background:var(--navy);border-top:1px solid #2c4271;box-shadow:0 14px 24px rgba(0,0,0,.28);max-height:calc(100vh - 72px);overflow:auto}
+.drawer .wrap{display:block;height:auto;padding-top:14px;padding-bottom:20px}
+.drawer h3{font-size:.95rem;font-weight:500;color:var(--cu2);margin:8px 0}
+.drawer .cats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.drawer a{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#fff;text-decoration:none;padding:12px 14px;border-left:4px solid var(--cu);background:var(--navy2);border-radius:6px}
+.drawer a:hover{background:#1f3a70}
+.drawer .cnt{font-size:.85rem;color:#aebbd6}
+.drawer .more{display:flex;flex-wrap:wrap;gap:4px 24px}
+.drawer .more a{background:none;border:0;padding:6px 0;color:#cdd8ee;border-radius:0}
+.drawer .more a:hover{color:var(--cu)}
+
+/* hero */
+.hero{background:var(--navy);color:#fff;padding:54px 0 64px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
+h1{font-size:clamp(2.3rem,6vw,4.1rem);font-weight:800;letter-spacing:-.01em}
+.hero p{max-width:29em;margin:16px 0 28px;font-size:1.1rem;color:#cdd8ee}
+.board{width:100%;max-width:420px;margin:0 auto;display:block}
+.tr{fill:none;stroke:#8a5a2b;stroke-width:3;stroke-linecap:square;stroke-linejoin:round}
+.pulse{fill:none;stroke:var(--cu2);stroke-width:3.5;stroke-linecap:round;stroke-dasharray:9 100;animation:run 3.2s linear infinite}
+@keyframes run{from{stroke-dashoffset:9}to{stroke-dashoffset:-100}}
+
+/* lists */
+section{padding:76px 0}
+.stock{background:#fff;border-block:1px solid var(--line)}
+.grp{margin-top:34px}
+.grp h3{font-size:1.25rem;color:var(--navy);padding-bottom:8px;border-bottom:3px solid var(--navy)}
+.items{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:22px;margin-top:20px}
+.card{background:#fff;border:2px solid var(--navy);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:5px 5px 0 var(--cu)}
+.ph{background:#e3eaf5;aspect-ratio:4/3;border-bottom:2px solid var(--navy)}
+.ph svg,.ph img{display:block;width:100%;height:100%;object-fit:cover}
+.cb{padding:12px 14px 14px;display:flex;flex-direction:column;flex:1}
+.cb b{font-weight:600;line-height:1.35}
+.cb span{font-size:.86rem;color:#52607a;flex:1;line-height:1.45;margin-top:2px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px}
+.pr{font:700 1.25rem "Space Grotesk","Anek Bangla",sans-serif;color:var(--navy)}
+.qty{display:inline-flex;align-items:center;border:2px solid var(--navy);border-radius:10px;overflow:hidden}
+.qty button{width:34px;height:34px;border:0;background:#fff;font-size:1.2rem;cursor:pointer;color:var(--navy)}
+.qty button:hover{background:var(--cu2)}
+.qty output{min-width:30px;text-align:center;font-weight:600}
+.note{font-size:.9rem;color:#52607a;margin-top:18px}
+
+/* why */
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 40px}
+.why-grid div{border-left:5px solid var(--cu);padding-left:18px}
+.why-grid h3{font-size:1.25rem;color:var(--navy)}
+
+/* reviews */
+.voices{background:var(--navy);color:#fff}
+.voices h2{color:#fff}
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:30px}
+.q p{font-size:1.05rem;color:#dbe4f5}
+.q b{display:flex;align-items:center;margin-top:14px;font-weight:600;color:var(--cu2)}
+.q .res{width:34px;height:11px;margin:0 8px 0 12px}
+.q .res::before,.q .res::after{width:9px;top:4px;height:2px}.q .res::before{left:-9px}.q .res::after{right:-9px}
+
+/* contact */
+.contact{text-align:center}
+.contact h2{justify-content:center}
+.contact .num{font:700 2.2rem "Space Grotesk","Anek Bangla",sans-serif;color:var(--navy);margin:8px 0 22px}
+.contact .sub{margin:0 auto 14px}
+footer{background:var(--navy);color:#9fb0d0;text-align:center;padding:26px 0;font-size:.92rem}
+
+/* order bar */
+.cart{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--navy);border-top:3px solid var(--cu);transform:translateY(110%);transition:transform .25s}
+.cart.on{transform:none}
+.cart .wrap{display:flex;justify-content:space-between;align-items:center;gap:14px;padding-top:12px;padding-bottom:12px;color:#fff}
+.cart strong{font:700 1.1rem "Anek Bangla",sans-serif}
+.cart small{display:block;color:#aebbd6;line-height:1.3}
+
+@media(max-width:820px){
+ .hero-grid,.quotes,.why-grid{grid-template-columns:1fr}
+ .board{max-width:300px}
+ .btn.line{margin:10px 0 0}
+ section{padding:58px 0}
+ .drawer .cats{grid-template-columns:1fr}
+ .bar .logo{font-size:1.2rem}
+ .bar .btn{padding:6px 14px}
+ .mbtn{padding:5px 10px}
+ .act{gap:8px}
+ .items{grid-template-columns:repeat(2,1fr);gap:14px}
+ .cb{padding:10px 10px 12px}
+ .row{flex-direction:column;align-items:stretch}
+ .qty{justify-content:space-between}
+ .qty button{width:42px}
+ h2 .res{display:none}
+}
+@media(prefers-reduced-motion:reduce){.pulse{animation:none;stroke-dasharray:none;opacity:0}html{scroll-behavior:auto}.cart{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+ <div class="wrap">
+  <a class="logo" href="#top">Saimon<b>tronics</b></a>
+  <div class="act">
+   <button class="mbtn" id="mbtn" type="button" aria-expanded="false" aria-controls="drawer"><span aria-hidden="true">☰</span> মেনু</button>
+  </div>
+ </div>
+ <nav class="drawer" id="drawer" aria-label="ক্যাটাগরি" hidden>
+  <div class="wrap">
+   <h3>পণ্যের ক্যাটাগরি</h3>
+   <div class="cats">
+    <a href="#battery"><b>ব্যাটারি</b><span class="cnt" data-for="battery-list"></span></a>
+    <a href="#boards"><b>বোর্ড ও মডিউল</b><span class="cnt" data-for="boards-list"></span></a>
+    <a href="#parts"><b>যন্ত্রাংশ ও টুল</b><span class="cnt" data-for="parts-list"></span></a>
+   </div>
+   <h3>আমাদের সম্পর্কে</h3>
+   <div class="more"><a href="#why">কেন আমাদের বেছে নেবেন</a><a href="#reviews">কাস্টমারদের মতামত</a><a href="#contact">যোগাযোগ</a></div>
+  </div>
+ </nav>
+</div>
+
+<header class="hero" id="top">
+ <div class="wrap hero-grid">
+  <div>
+   <h1>প্রজেক্টের সব যন্ত্রাংশ, এক দোকানে</h1>
+   <p>ব্যাটারি, বোর্ড, সেন্সর আর ছোট-বড় সব ইলেকট্রনিক কম্পোনেন্ট। দাম দেখে পছন্দের জিনিস বেছে নিন, তারপর WhatsApp-এ অর্ডার পাঠান।</p>
+   <a class="btn wa" href="#" target="_blank" rel="noopener">অর্ডার করুন</a>
+   <a class="btn line" href="#battery">দাম দেখুন</a>
+  </div>
+  <svg class="board" viewBox="0 0 420 330" role="img" aria-label="সার্কিট বোর্ডে চিপ">
+   <g id="traces">
+    <path class="tr" d="M130 145H70V60H20"/><path class="tr" d="M130 180H20"/><path class="tr" d="M130 215H60V290H20"/>
+    <path class="tr" d="M290 145H350V50H400"/><path class="tr" d="M290 180H400"/><path class="tr" d="M290 215H340V290H400"/>
+    <path class="tr" d="M180 100V40H120V10"/><path class="tr" d="M210 100V10"/><path class="tr" d="M240 100V40H300V10"/>
+    <path class="tr" d="M180 260V320"/><path class="tr" d="M240 260V300H300V320"/>
+   </g>
+   <g fill="#e0883a"><circle cx="20" cy="60" r="6"/><circle cx="20" cy="180" r="6"/><circle cx="20" cy="290" r="6"/><circle cx="400" cy="50" r="6"/><circle cx="400" cy="180" r="6"/><circle cx="400" cy="290" r="6"/><circle cx="120" cy="10" r="6"/><circle cx="210" cy="10" r="6"/><circle cx="300" cy="10" r="6"/><circle cx="180" cy="320" r="6"/><circle cx="300" cy="320" r="6"/></g>
+   <rect x="150" y="120" width="120" height="140" rx="10" fill="#17305e" stroke="#e0883a" stroke-width="3"/>
+   <circle cx="168" cy="138" r="5" fill="#e0883a"/>
+   <text x="210" y="200" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="34" fill="#fff">ST</text>
+  </svg>
+ </div>
+</header>
+
+<main>
+<section class="stock" id="battery">
+ <div class="wrap">
+  <h2>ব্যাটারি <span class="res"></span></h2>
+  <p class="sub">রিচার্জেবল থেকে কয়েন সেল, প্রজেক্ট আর ঘরের ব্যবহার দুটোর জন্যই। যে পণ্য চাই তার নিচে + চাপুন, তারপর নিচের বারে অর্ডার করুন।</p>
+  <ul class="items" id="battery-list"></ul>
+ </div>
+</section>
+
+<section id="circuit">
+ <div class="wrap">
+  <h2>সার্কিট সেকশন <span class="res"></span></h2>
+  <p class="sub">বোর্ড, মডিউল আর ছোট যন্ত্রাংশের মেনু ও দাম।</p>
+  <div class="grp" id="boards"><h3>বোর্ড ও মডিউল</h3><ul class="items" id="boards-list"></ul></div>
+  <div class="grp" id="parts"><h3>যন্ত্রাংশ ও টুল</h3><ul class="items" id="parts-list"></ul></div>
+  <p class="note">বাজার অনুযায়ী দাম বদলাতে পারে। অর্ডারের পর দাম ও স্টক নিশ্চিত করা হবে।</p>
+ </div>
+</section>
+
+<section class="stock" id="why">
+ <div class="wrap">
+  <h2>কেন আমাদের বেছে নেবেন <span class="res"></span></h2>
+  <p class="sub">ছোট দোকান, তাই প্রতিটি ক্রেতার প্রজেক্টকে আমরা নিজের প্রজেক্টের মতো দেখি।</p>
+  <div class="why-grid">
+   <div><h3>আসল যন্ত্রাংশ</h3><p>কাজ না করা বা নকল কম্পোনেন্ট বিক্রি করি না। কেনার আগে জিনিস বুঝিয়ে দিই।</p></div>
+   <div><h3>ন্যায্য দাম</h3><p>দামের তালিকা সামনেই আছে। লুকানো খরচ নেই।</p></div>
+   <div><h3>প্রজেক্টে পরামর্শ</h3><p>কোন সেন্সর বা বোর্ড আপনার কাজে লাগবে, না জানলে জিজ্ঞেস করুন। আমরা বলে দেব।</p></div>
+   <div><h3>WhatsApp-এ সহজ অর্ডার</h3><p>দোকানে না এসেও অর্ডার দিন, সময় বাঁচান।</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="voices" id="reviews">
+ <div class="wrap">
+  <h2>কাস্টমারদের মতামত <span class="res"></span></h2>
+  <div class="quotes">
+   <div class="q"><p>“Arduino আর সেন্সর এক জায়গা থেকেই পেয়ে গেছি। কোনটা কীসের জন্য, সেটাও বুঝিয়ে দিয়েছেন।”</p><b>রাকিব হাসান <i class="res"></i>ইঞ্জিনিয়ারিং শিক্ষার্থী</b></div>
+   <div class="q"><p>“ব্যাটারি আর চার্জার মডিউলের দাম ঠিক ছিল। WhatsApp-এ অর্ডার দিয়ে খুব সহজে হাতে পেয়েছি।”</p><b>নুসরাত জাহান <i class="res"></i>স্কুল শিক্ষিকা</b></div>
+   <div class="q"><p>“প্রজেক্টের মাঝখানে কম্পোনেন্ট শেষ হয়ে গিয়েছিল। ফোনে জানানোর কিছুক্ষণ পরেই জিনিস পেয়ে গেলাম।”</p><b>তাসনিম আহমেদ <i class="res"></i>হবিস্ট</b></div>
+  </div>
+ </div>
+</section>
+
+<section class="contact" id="contact">
+ <div class="wrap">
+  <h2>অর্ডার বা প্রশ্ন? লিখুন <span class="res"></span></h2>
+  <p class="sub">কোন যন্ত্রাংশ লাগবে নিশ্চিত না হলে প্রজেক্টের কথা লিখে পাঠান।</p>
+  <div class="num">০১৮২১-৩২৬৩২৪</div>
+  <a class="btn wa" href="#" target="_blank" rel="noopener">অর্ডার করুন</a>
+ </div>
+</section>
+</main>
+
+<footer>© Saimontronics · ইলেকট্রনিক কম্পোনেন্টের দোকান</footer>
+
+<div class="cart" id="cart" aria-live="polite">
+ <div class="wrap">
+  <div><strong id="cart-sum"></strong><small id="cart-count"></small></div>
+  <a class="btn" id="cart-send" href="#" target="_blank" rel="noopener">অর্ডার করুন</a>
+ </div>
+</div>
+
+<script>
+// ---- এখানে নম্বর, পণ্য ও দাম বদলান ----
+const WA = "8801821326324";
+const DATA = {
+  "battery-list": [
+    {n:"18650 Li-ion Cell", d:"3.7V · 2000mAh", p:160},
+    {n:"LiPo Battery", d:"3.7V · 1000mAh, ড্রোন ও ছোট প্রজেক্টে", p:280},
+    {n:"9V Battery", d:"মাল্টিমিটার ও রেডিওর জন্য", p:60},
+    {n:"AA Rechargeable (১টি)", d:"Ni-MH · 1.2V", p:90},
+    {n:"CR2032 Coin Cell", d:"3V · ঘড়ি ও ছোট ডিভাইসে", p:30},
+    {n:"Lead-acid Battery", d:"12V · 7Ah, লাইট ও UPS-এর জন্য", p:1250},
+    {n:"TP4056 Charging Module", d:"Type-C · লিথিয়াম ব্যাটারি চার্জার", p:45}
+  ],
+  "boards-list": [
+    {n:"Arduino Uno R3", d:"শুরু করার সবচেয়ে সহজ বোর্ড", p:850},
+    {n:"Arduino Nano", d:"ছোট আকারের প্রজেক্টের জন্য", p:480},
+    {n:"ESP32 DevKit", d:"WiFi ও Bluetooth যুক্ত", p:650},
+    {n:"NodeMCU ESP8266", d:"IoT প্রজেক্টের জন্য", p:420},
+    {n:"L298N Motor Driver", d:"মোটর ও রোবট গাড়ির জন্য", p:210},
+    {n:"Relay Module", d:"১ চ্যানেল · 5V", p:90},
+    {n:"DHT11 Sensor", d:"তাপমাত্রা ও আর্দ্রতা", p:110}
+  ],
+  "parts-list": [
+    {n:"Breadboard", d:"830 পয়েন্ট", p:150},
+    {n:"Jumper Wire Set", d:"৪০টি · Male-Female", p:90},
+    {n:"Resistor Kit", d:"1/4W · বিভিন্ন মান", p:220},
+    {n:"LED Pack", d:"১০০ পিস · মিশ্র রঙ", p:120},
+    {n:"555 Timer IC", d:"টাইমার ও অসিলেটরের জন্য", p:25},
+    {n:"Soldering Iron", d:"60W · তাপমাত্রা নিয়ন্ত্রণসহ", p:450}
+  ]
+};
+// ---------------------------------------
+const $ = id => document.getElementById(id);
+const bn = n => String(n).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+const wa = t => `https://wa.me/${WA}?text=${encodeURIComponent(t)}`;
+const qty = {};
+
+document.querySelectorAll(".wa").forEach(a => a.href = wa("আসসালামু আলাইকুম, Saimontronics থেকে কিছু যন্ত্রাংশ কিনতে চাই।"));
+
+const lab = n => n.split(" ")[0];
+function art(it) {
+  if (it.img) return `<img src="${it.img}" alt="${it.n}" loading="lazy">`;
+  const n = it.n, L = lab(n), W = "#fff";
+  const tx = (x, y, z, c) => `<text x="${x}" y="${y}" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="${z}" fill="${c || W}">${L}</text>`;
+  let b;
+  if (/18650|^AA/.test(n)) b = `<rect x="58" y="16" width="44" height="92" rx="8" fill="#2d6cdf"/><rect x="72" y="8" width="16" height="9" rx="2" fill="#c8ccd4"/><rect x="58" y="42" width="44" height="20" fill="#fff"/>${tx(80,57,12,"#12306b")}`;
+  else if (/LiPo/.test(n)) b = `<rect x="38" y="26" width="84" height="76" rx="6" fill="#4b6cb7"/><rect x="38" y="26" width="84" height="16" fill="#e0883a"/><path d="M68 102v12M92 102v12" stroke="#c0392b" stroke-width="5"/>${tx(80,76,16)}`;
+  else if (/^9V/.test(n)) b = `<rect x="48" y="24" width="64" height="88" rx="5" fill="#222"/><rect x="48" y="24" width="64" height="24" fill="#e0883a"/><circle cx="66" cy="15" r="7" fill="#bbb"/><rect x="88" y="9" width="14" height="10" fill="#bbb"/>${tx(80,84,20)}`;
+  else if (/CR2032/.test(n)) b = `<circle cx="80" cy="60" r="44" fill="#c9ced6" stroke="#8a93a4" stroke-width="3"/><circle cx="80" cy="60" r="31" fill="#e6eaf1"/>${tx(80,65,13,"#334155")}`;
+  else if (/Lead/.test(n)) b = `<rect x="22" y="36" width="116" height="72" rx="6" fill="#1f2937"/><rect x="22" y="36" width="116" height="14" fill="#374151"/><rect x="40" y="24" width="16" height="12" fill="#c0392b"/><rect x="104" y="24" width="16" height="12" fill="#111"/>${tx(80,88,22)}`;
+  else if (/DHT|Sensor/.test(n)) b = `<rect x="50" y="12" width="60" height="72" rx="6" fill="#2e86c1"/><path d="M62 28h36M62 40h36M62 52h36M62 64h36" stroke="#fff" stroke-width="3"/><path d="M62 84v28M80 84v28M98 84v28" stroke="#c9ced6" stroke-width="5"/>`;
+  else if (/Breadboard/.test(n)) b = `<rect x="14" y="20" width="132" height="80" rx="6" fill="#f3f4f6" stroke="#cbd5e1" stroke-width="3"/><path d="M14 60h132" stroke="#cbd5e1" stroke-width="8"/><path d="M26 36h108M26 46h108M26 74h108M26 84h108" stroke="#334155" stroke-width="5" stroke-dasharray="2 6"/><path d="M26 27h108" stroke="#d62828" stroke-width="3"/><path d="M26 94h108" stroke="#2563eb" stroke-width="3"/>`;
+  else if (/Jumper|Wire/.test(n)) b = `<g fill="none" stroke-width="6" stroke-linecap="round"><path d="M26 36C60 6 90 70 134 32" stroke="#d62828"/><path d="M26 60C60 30 90 94 134 56" stroke="#2563eb"/><path d="M26 84C60 54 90 118 134 80" stroke="#f1b800"/></g>`;
+  else if (/Resistor/.test(n)) b = `<path d="M8 60h34M118 60h34" stroke="#8794ac" stroke-width="5"/><rect x="40" y="40" width="80" height="40" rx="20" fill="#d8c18f"/><rect x="58" y="40" width="8" height="40" fill="#8b4513"/><rect x="74" y="40" width="8" height="40" fill="#111"/><rect x="90" y="40" width="8" height="40" fill="#f77f00"/><rect x="106" y="43" width="6" height="34" fill="#d4af37"/>`;
+  else if (/LED/.test(n)) b = `<circle cx="80" cy="44" r="38" fill="#ff4d4d" opacity=".18"/><path d="M60 72V42a20 20 0 0 1 40 0v30z" fill="#ff4d4d"/><rect x="54" y="72" width="52" height="7" fill="#d94040"/><path d="M70 79v34M90 79v28" stroke="#c9ced6" stroke-width="4"/>`;
+  else if (/555|IC/.test(n)) b = `<rect x="44" y="30" width="72" height="56" rx="4" fill="#111827"/><circle cx="56" cy="42" r="4" fill="#374151"/><path d="M56 86v16M72 86v16M88 86v16M104 86v16M56 30V14M72 30V14M88 30V14M104 30V14" stroke="#c9ced6" stroke-width="5"/>${tx(86,66,16)}`;
+  else if (/Solder/.test(n)) b = `<path d="M24 98L88 58" stroke="#9ca3af" stroke-width="5" stroke-linecap="round"/><path d="M92 56L138 28" stroke="#e0883a" stroke-width="20" stroke-linecap="round"/><circle cx="22" cy="99" r="4" fill="#ff7a3a"/>`;
+  else {
+    const c = /Arduino/.test(n) ? "#0b7a75" : /ESP|NodeMCU/.test(n) ? "#1b1f2a" : /L298N/.test(n) ? "#b42318" : "#1f5fbf";
+    b = `<rect x="14" y="22" width="132" height="78" rx="6" fill="${c}"/><rect x="24" y="40" width="34" height="30" fill="#c9ced6"/><rect x="82" y="42" width="46" height="38" rx="3" fill="#111"/><path d="M22 29h116M22 93h116" stroke="#e0c060" stroke-width="4" stroke-dasharray="3 4"/>${tx(105,65,8,"#aab")}`;
+  }
+  return `<svg viewBox="0 0 160 120" role="img" aria-label="${n}">${b}</svg>`;
+}
+
+for (const id in DATA) {
+  $(id).innerHTML = DATA[id].map((it, i) => `<li class="card">
+   <div class="ph">${art(it)}</div>
+   <div class="cb"><b>${it.n}</b><span>${it.d}</span>
+    <div class="row"><div class="pr">৳${bn(it.p)}</div>
+     <div class="qty"><button type="button" aria-label="${it.n} কমান" data-k="${id}|${i}" data-d="-1">−</button><output>০</output><button type="button" aria-label="${it.n} বাড়ান" data-k="${id}|${i}" data-d="1">+</button></div>
+    </div>
+   </div>
+  </li>`).join("");
+}
+
+document.addEventListener("click", e => {
+  const b = e.target.closest("button[data-k]");
+  if (!b) return;
+  const k = b.dataset.k;
+  qty[k] = Math.max(0, Math.min(99, (qty[k] || 0) + Number(b.dataset.d)));
+  b.closest(".qty").querySelector("output").textContent = bn(qty[k]);
+  drawCart();
+});
+
+function drawCart() {
+  let sum = 0, count = 0, lines = [];
+  for (const k in qty) {
+    if (!qty[k]) continue;
+    const [id, i] = k.split("|"), it = DATA[id][i];
+    sum += it.p * qty[k]; count += qty[k];
+    lines.push(`• ${it.n} × ${bn(qty[k])} = ৳${bn(it.p * qty[k])}`);
+  }
+  $("cart").classList.toggle("on", count > 0);
+  $("cart-sum").textContent = "মোট ৳" + bn(sum);
+  $("cart-count").textContent = bn(lines.length) + "টি পণ্য · " + bn(count) + " পিস";
+    const link = wa("আসসালামু আলাইকুম, Saimontronics থেকে অর্ডার করতে চাই:\n\n" + lines.join("\n") + "\n\nমোট: ৳" + bn(sum) + "\n\nনাম ও ঠিকানা:");
+  $("cart-send").href = link;
+}
+
+document.querySelectorAll("[data-for]").forEach(e => e.textContent = bn(DATA[e.dataset.for].length) + "টি পণ্য");
+const drawer = $("drawer"), mbtn = $("mbtn");
+function setDrawer(o) {
+  drawer.hidden = !o;
+  mbtn.setAttribute("aria-expanded", o);
+  mbtn.firstElementChild.textContent = o ? "✕" : "☰";
+}
+mbtn.onclick = () => setDrawer(drawer.hidden);
+drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setDrawer(false)));
+document.addEventListener("keydown", e => { if (e.key === "Escape") setDrawer(false); });
+document.addEventListener("click", e => { if (!drawer.hidden && !e.target.closest(".bar")) setDrawer(false); });
+
+drawCart();
+
+// হিরোর সার্কিটে চলমান আলো
+document.querySelectorAll("#traces .tr").forEach((p, i) => {
+  const c = p.cloneNode();
+  c.setAttribute("class", "pulse");
+  c.setAttribute("pathLength", "100");
+  c.style.animationDelay = (i * 0.28) + "s";
+  p.parentNode.appendChild(c);
+});
+
+</script>
+</body>
+</html>
